@@ -57,11 +57,11 @@ export default defineConfig({
 
 - There are two modes for uploading, one is custom and the other is provided by plugins
 
-## internal
+### internal
 
 - Currently, only ALI-OSS is supported internally by the plug-in ,All contents under 'assetsDir' will be found and uploaded to the server
 
-## custom
+### custom
 
 - All contents under 'assetsDir' will be found and pass to your callback function
 - The plugin provides good task scheduling, and logging. You only need to provide the upload function
@@ -69,5 +69,7 @@ export default defineConfig({
 # roadmap
 
 [ ] support `cos-nodejs-sdk-v5`
+
 [ ] Optimizing Task Scheduling
+
 [ ] Logging increases upload time
