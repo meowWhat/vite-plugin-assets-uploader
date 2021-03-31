@@ -14,12 +14,14 @@ interface ossOptions {
 export interface Options {
   enableAlioss?: boolean
   ossOptions?: ossOptions
-  userUpload?: (fileName: string, content: Buffer) => Promise<any>
+  userUpload?: (filePath: string, content: Buffer) => Promise<any>
 }
 
 export interface ResolvedOptions extends Options {
   root?: string
   assetsDir?: string
+  savePath?: string
+  isProduction?: boolean
 }
 
 export default function assetUploaderPlugin(rawOptions: Options = {}): Plugin {
@@ -29,13 +31,16 @@ export default function assetUploaderPlugin(rawOptions: Options = {}): Plugin {
 
   return {
     name: 'vite-plugin-assets-uploader',
-
     configResolved: (config) => {
       options.assetsDir = path.join(config.build.outDir, config.build.assetsDir)
       options.root = config.root
+      options.savePath = config.build.assetsDir
+      options.isProduction = config.isProduction
     },
     closeBundle: () => {
-      new AssetsMaintainer(options).pushAssetsToOss()
+      if (options.isProduction) {
+        new AssetsMaintainer(options).pushAssetsToOss()
+      }
     }
   }
 }

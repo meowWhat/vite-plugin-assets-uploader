@@ -10,11 +10,13 @@ interface ossOptions {
 export interface Options {
     enableAlioss?: boolean;
     ossOptions?: ossOptions;
-    userUpload?: (fileName: string, content: Buffer) => Promise<any>;
+    userUpload?: (filePath: string, content: Buffer) => Promise<any>;
 }
 export interface ResolvedOptions extends Options {
     root?: string;
     assetsDir?: string;
+    savePath?: string;
+    isProduction?: boolean;
 }
 export default function assetUploaderPlugin(rawOptions?: Options): Plugin;
 export {};

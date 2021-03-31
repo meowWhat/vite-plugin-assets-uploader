@@ -10,11 +10,13 @@ import { Question } from './helper/Question'
 
 export interface fileItem {
   filename: string,
-  absFile: string
+  absFile: string,
+  size: string
 }
 export class AssetsMaintainer {
-  private uploadImplementation!: (fileName: string, base64: Buffer) => Promise<any>
-
+  private uploadImplementation!: (filePath: string, base64: Buffer) => Promise<any>
+  private doneCount = 0
+  private filesToPushLen!: number
   constructor(private options: ResolvedOptions) {
   }
 
@@ -62,14 +64,15 @@ export class AssetsMaintainer {
         } else {
           sizeS = sizeS.green
         }
-        filesToPush.push({ filename, absFile })
+        filesToPush.push({ filename, absFile, size: sizeS })
       }
 
-      const answer = await new Question(pushAssetsConfirm).getAnswer()
-      if (answer !== 'y') {
-        console.log(pushAssetsCanceled)
-        return
-      }
+      this.filesToPushLen = filesToPush.length
+      // const answer = await new Question(pushAssetsConfirm).getAnswer()
+      // if (answer !== 'y') {
+      //   console.log(pushAssetsCanceled)
+      //   return
+      // }
 
       const queues: any[] = []
 
@@ -123,12 +126,19 @@ export class AssetsMaintainer {
     return Promise.all(files.map((item) => this.uploadFile(item)))
   }
 
-  public uploadFile({ absFile, filename }: fileItem) {
+  public uploadFile({ absFile, filename, size }: fileItem) {
     const res = fs.readFileSync(absFile)
+    const filePath = path.join(this.options.savePath!, filename)
+
+    console.log(`[↑] 正在上传: ${filename.yellow} 大小:${size} 进度:${this.doneCount + 1}/${this.filesToPushLen}`)
+
+    this.doneCount++
+
     if (this.options.userUpload) {
-      return this.options.userUpload(filename, res)
+      return this.options.userUpload(filePath, res)
     }
-    return this.uploadImplementation(filename, res)
+
+    return this.uploadImplementation(filePath, res)
   }
 
   private async initOssClinet() {
