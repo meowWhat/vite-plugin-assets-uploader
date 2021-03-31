@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-assets-uploader",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Helps you upload the packaged assets of Vite to the server",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
