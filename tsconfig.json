@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "sourceMap": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "downlevelIteration": true,
+    "strict": true,
+    // "strictNullChecks": true,
+    // "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    // NOTE:
+    // unlike winged core, there's no benifets for us setting @winged/cli target above "es5"
+    // so we just keep target to be "es5"
+    "target": "es5",
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "newLine": "lf",
+    // NOTE:
+    // list all needed @types here
+    // and make sure those who installed by other npm package dosen't bother us (like @types/node)
+    "types": [
+      "typescript",
+      "node",
+      "colors",
+    ],
+    "lib": [
+      "es2015",
+      "DOM"
+    ]
+  },
+  "compileOnSave": false
+}

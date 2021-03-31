@@ -1,0 +1,20 @@
+{
+  "name": "vite-plugin-assets-uploader",
+  "version": "1.0.0",
+  "description": "Helps you upload the packaged assets of Vite to the server",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": "git@github.com:meowWhat/vite-plugin-assets-uploader.git",
+  "author": "cjh <1797793818@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "node_modules/.bin/tsc --newLine lf"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
