@@ -1,12 +1,10 @@
 import * as glob from 'glob'
-import * as path from 'path'
 import * as fs from 'fs'
 import 'colors'
 import { ResolvedOptions } from './index'
-import { pushAssetsDone, pushAssetsConfirm, pushAssetsCanceled } from './message'
+import { pushAssetsDone } from './message'
 import { AliOss, getToken } from './AliOss'
-import { Question } from './helper/Question'
-
+import { pathHelper } from './helper/PathHelper'
 
 export interface fileItem {
   filename: string,
@@ -43,7 +41,7 @@ export class AssetsMaintainer {
     // 上传文件
     try {
       const filesToPush: Array<fileItem> = []
-      const assetDir = path.join(this.options.root, this.options.assetsDir).replace(/\/$/, '')
+      const assetDir = pathHelper.join(this.options.root, this.options.assetsDir).replace(/\/$/, '')
       const absFiles = glob.sync(assetDir + '/**/*')
 
       for (const absFile of absFiles) {
@@ -128,7 +126,7 @@ export class AssetsMaintainer {
 
   public uploadFile({ absFile, filename, size }: fileItem) {
     const res = fs.readFileSync(absFile)
-    const filePath = path.join(this.options.savePath!, filename)
+    const filePath = pathHelper.join(this.options.savePath!, filename)
 
     console.log(`[↑] 正在上传: ${filename.yellow} 大小:${size} 进度:${this.doneCount + 1}/${this.filesToPushLen}`)
 
