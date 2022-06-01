@@ -3,7 +3,7 @@ import * as OSS from 'ali-oss';
 interface AliOssOptions {
     accessKeyId: string;
     accessKeySecret: string;
-    stsToken: string;
+    stsToken?: string;
     bucket: string;
     region: string;
 }

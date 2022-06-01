@@ -6,7 +6,7 @@ import { AssetsMaintainer } from './AssetsMaintainer'
 interface ossOptions {
   accessKeyId: string,
   accessKeySecret: string,
-  roleArn: string,
+  roleArn?: string,
   bucket: string,
   region: string
 }

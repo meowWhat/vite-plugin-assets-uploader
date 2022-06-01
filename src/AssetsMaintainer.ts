@@ -146,16 +146,26 @@ export class AssetsMaintainer {
       throw new Error("The required ossOptions parameter is missing when enableAlioss is true")
     }
 
-    const { credentials } = await getToken({
-      accessKeyId: options.accessKeyId,
-      accessKeySecret: options.accessKeySecret,
-      roleArn: options.roleArn
-    })
+    if (options.roleArn) {
+
+      const { credentials } = await getToken({
+        accessKeyId: options.accessKeyId,
+        accessKeySecret: options.accessKeySecret,
+        roleArn: options.roleArn
+      })
+
+      return new AliOss({
+        stsToken: credentials.SecurityToken,
+        accessKeyId: credentials.AccessKeyId,
+        accessKeySecret: credentials.AccessKeySecret,
+        bucket: options.bucket,
+        region: options.region
+      })
+    }
 
     return new AliOss({
-      stsToken: credentials.SecurityToken,
-      accessKeyId: credentials.AccessKeyId,
-      accessKeySecret: credentials.AccessKeySecret,
+      accessKeyId: options.accessKeyId,
+      accessKeySecret: options.accessKeySecret,
       bucket: options.bucket,
       region: options.region
     })
@@ -163,7 +173,6 @@ export class AssetsMaintainer {
   }
 
   private logError(error: any) {
-    let msg = typeof error == 'object' ? JSON.stringify(error, undefined, 2) : error ? error : ''
-    console.log(`程序终止，错误信息:${msg}`.red)
+    console.log(`程序终止，错误信息:\n`.red + error)
   }
 }

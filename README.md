@@ -11,8 +11,8 @@ yarn add vite-plugin-assets-uploader --dev
 # exapmle
 
 ```typescript
-import { defineConfig } from "vite";
-import uploader from "vite-plugin-assets-uploader";
+import { defineConfig } from 'vite'
+import uploader from 'vite-plugin-assets-uploader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,23 +20,23 @@ export default defineConfig({
     uploader({
       enableAlioss: true,
       ossOptions: {
-        bucket: "xxx",
-        accessKeyId: "xxxx",
-        accessKeySecret: "xxxxx",
-        region: "xxxx",
-        roleArn: "xxxxx",
+        bucket: 'yourBucket',
+        accessKeyId: 'yourAccessKeyId',
+        accessKeySecret: 'yourAccessKeySecret',
+        region: 'oss-cn-hangzhou',
+        roleArn: 'yourRoleArn', // option
       },
     }),
   ],
-  base: "oss path",
-});
+  base: 'oss path',
+})
 ```
 
 # custom
 
 ```typescript
-import { defineConfig } from "vite";
-import uploader from "vite-plugin-assets-uploader";
+import { defineConfig } from 'vite'
+import uploader from 'vite-plugin-assets-uploader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -44,13 +44,13 @@ export default defineConfig({
     uploader({
       userUpload: (filePath: string, content: Buffer) => {
         return new Promise((reslove) => {
-          console.log(filePath, content);
-          reslove(null);
-        });
+          console.log(filePath, content)
+          reslove(null)
+        })
       },
     }),
   ],
-});
+})
 ```
 
 # more
